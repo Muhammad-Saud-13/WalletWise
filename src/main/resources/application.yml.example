@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://username:password@cluster.mongodb.net/walletwise?retryWrites=true&w=majority
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    root: INFO
+
