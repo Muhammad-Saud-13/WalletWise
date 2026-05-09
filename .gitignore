@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### YAML Configuration Files ###
+*.yml
+*.yaml
+!src/main/resources/application.yml
+!src/main/resources/application-*.yml
+logs/
+
+
