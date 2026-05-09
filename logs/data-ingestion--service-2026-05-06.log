@@ -1,0 +1,5 @@
+2026-05-06 11:08:35 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Starting WalletwiseApplication using Java 22.0.2 with PID 7804 (D:\Spring boot Projects\Spring MVC\Walletwise\target\classes started by Pc in D:\Spring boot Projects\Spring MVC\Walletwise)
+2026-05-06 11:08:35 [restartedMain] DEBUG c.w.Walletwise.WalletwiseApplication - Running with Spring Boot v3.5.14, Spring v6.2.18
+2026-05-06 11:08:35 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-05-06 11:08:48 [restartedMain] DEBUG c.w.W.config.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-05-06 11:08:51 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Started WalletwiseApplication in 18.87 seconds (process running for 21.343)
