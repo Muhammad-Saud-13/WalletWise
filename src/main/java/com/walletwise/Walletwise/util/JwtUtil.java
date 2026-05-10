@@ -2,12 +2,14 @@ package com.walletwise.Walletwise.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.PostConstruct;
 import javax.crypto.SecretKey;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,12 +18,21 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    // You should preferably store this secret in application.yaml file
-    // Doing it manually here for simplicity. (Generates a secure 256-bit key)
-    private final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    @Value("${jwt.secret}")
+    private String secret;
+
+    @Value("${jwt.expiration}")
+    private Long expiration;
+
+    private SecretKey SECRET_KEY;
+
+    @PostConstruct
+    public void init() {
+        this.SECRET_KEY = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secret));
+    }
+
 
     // Determines token validity (e.g., 10 hours)
-    private final long JWT_EXPIRATION = 1000 * 60 * 60 * 10;
 
     // Extract the username (which is email in your case) from the token
     public String extractUsername(String token) {
@@ -62,7 +73,7 @@ public class JwtUtil {
                 .setClaims(claims)
                 .setSubject(subject) // The username/email
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration * 60 * 60 * 1000))
                 .signWith(SECRET_KEY)
                 .compact();
     }

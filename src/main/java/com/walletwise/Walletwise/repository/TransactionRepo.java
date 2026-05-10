@@ -1,5 +1,6 @@
 package com.walletwise.Walletwise.repository;
 
+import com.walletwise.Walletwise.dto.TransactionFilter;
 import com.walletwise.Walletwise.entity.Transaction;
 import com.walletwise.Walletwise.entity.User;
 import org.springframework.data.domain.Page;
@@ -14,4 +15,5 @@ import java.util.Optional;
 public interface TransactionRepo extends MongoRepository<Transaction, String> {
     public Optional<Transaction> findById(String id);
     Page<Transaction> findByUser(User user, Pageable pageable);
+
 }

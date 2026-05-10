@@ -1,6 +1,7 @@
 package com.walletwise.Walletwise.controller;
 
 import com.walletwise.Walletwise.dto.TransactionDTO;
+import com.walletwise.Walletwise.dto.TransactionFilter;
 import com.walletwise.Walletwise.entity.Transaction;
 import com.walletwise.Walletwise.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +29,18 @@ public class TransactionController {
         
         return ResponseEntity.ok(transactionService.getTransactionById(id, currentPrincipalName));
     }
-    
+
+    // Endpoint to get all transactions with pagination and filtering
+    // e.g: http://localhost:8080/api/transactions/all?page=1&size=2&type=EXPENSE&transactionCategory=HEALTHCARE
     @GetMapping("/all")
     public ResponseEntity<Page<TransactionDTO>> getAllTransactions(
-            @PageableDefault(page = 0, size = 10, sort = "date", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(page = 0, size = 10, sort = "date", direction = Sort.Direction.DESC) Pageable pageable,
+            TransactionFilter transactionFilter
     ) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
 
-        return ResponseEntity.ok(transactionService.getAllTransaction(currentPrincipalName, pageable));
+        return ResponseEntity.ok(transactionService.getAllTransaction(currentPrincipalName, pageable, transactionFilter));
     }
 
     @PostMapping("/add")

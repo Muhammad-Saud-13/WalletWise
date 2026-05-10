@@ -1,6 +1,7 @@
 package com.walletwise.Walletwise.service.impl;
 
 import com.walletwise.Walletwise.dto.TransactionDTO;
+import com.walletwise.Walletwise.dto.TransactionFilter;
 import com.walletwise.Walletwise.entity.Transaction;
 import com.walletwise.Walletwise.entity.User;
 import com.walletwise.Walletwise.exception.ResourceNotFoundException;
@@ -12,6 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.domain.PageImpl;
+import java.util.List;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {
@@ -21,6 +27,9 @@ public class TransactionServiceImpl implements TransactionService {
     
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Override
     public TransactionDTO getTransactionById(String id, String currentPrincipalName) {
@@ -35,11 +44,51 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public Page<TransactionDTO> getAllTransaction(String currentPrincipalName, Pageable pageable) {
+    public Page<TransactionDTO> getAllTransaction(String currentPrincipalName, Pageable pageable, TransactionFilter transactionFilter) {
         User user = userRepo.findByEmail(currentPrincipalName)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        return transactionRepo.findByUser(user, pageable).map(this::convertToDTO);
+        Query query = new Query();
+        query.addCriteria(Criteria.where("user").is(user));
+
+        if (transactionFilter.getType() != null) {
+            query.addCriteria(Criteria.where("type").is(transactionFilter.getType()));
+        }
+        if (transactionFilter.getTransactionCategory() != null) {
+            query.addCriteria(Criteria.where("transactionCategory").is(transactionFilter.getTransactionCategory()));
+        }
+        if (transactionFilter.getPaymentMethod() != null) {
+            query.addCriteria(Criteria.where("paymentMethod").is(transactionFilter.getPaymentMethod()));
+        }
+        
+        if (transactionFilter.getMinAmount() != null || transactionFilter.getMaxAmount() != null) {
+            Criteria amountCriteria = Criteria.where("amount");
+            if (transactionFilter.getMinAmount() != null) {
+                amountCriteria.gte(transactionFilter.getMinAmount());
+            }
+            if (transactionFilter.getMaxAmount() != null) {
+                amountCriteria.lte(transactionFilter.getMaxAmount());
+            }
+            query.addCriteria(amountCriteria);
+        }
+
+        if (transactionFilter.getFromDate() != null || transactionFilter.getToDate() != null) {
+            Criteria dateCriteria = Criteria.where("createdAt");
+            if (transactionFilter.getFromDate() != null) {
+                dateCriteria.gte(transactionFilter.getFromDate().atStartOfDay());
+            }
+            if (transactionFilter.getToDate() != null) {
+                dateCriteria.lte(transactionFilter.getToDate().atTime(java.time.LocalTime.MAX));
+            }
+            query.addCriteria(dateCriteria);
+        }
+
+        long total = mongoTemplate.count(query, Transaction.class);
+        query.with(pageable);
+        List<Transaction> transactions = mongoTemplate.find(query, Transaction.class);
+
+        List<TransactionDTO> dtos = transactions.stream().map(this::convertToDTO).toList();
+        return new PageImpl<>(dtos, pageable, total);
     }
 
     private TransactionDTO convertToDTO(Transaction transaction) {

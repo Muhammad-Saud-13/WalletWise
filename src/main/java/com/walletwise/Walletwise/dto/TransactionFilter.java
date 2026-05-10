@@ -3,26 +3,23 @@ package com.walletwise.Walletwise.dto;
 import com.walletwise.Walletwise.enums.Category;
 import com.walletwise.Walletwise.enums.PaymentMethod;
 import com.walletwise.Walletwise.enums.TransactionType;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class TransactionDTO {
-    
-    private String id;
+public class TransactionFilter {
     private TransactionType type;
     private Category transactionCategory;
-    private BigDecimal amount;
+    private BigDecimal minAmount;
+    private BigDecimal maxAmount;
     private PaymentMethod paymentMethod;
-    private String description;
-    private LocalDate date;
-    private LocalDateTime createdAt;
-}
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate fromDate;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate toDate;
+}
