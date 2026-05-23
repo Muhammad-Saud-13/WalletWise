@@ -1,4 +1,3 @@
-
 <configuration>
     <!--  Log Pattern  -->
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"/>
@@ -10,7 +9,7 @@
     </appender>
     <!--  Rolling File Appender  -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/data-ingestion-service.log</file>
+        <file>logs/walletWise</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--  daily log files  -->
             <fileNamePattern>logs/wallet-wise-%d{yyyy-MM-dd}.log</fileNamePattern>
@@ -26,6 +25,7 @@
     </root>
     <!--  Custom Logger for your package  -->
     <logger name="com.walletwise" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </logger>
 </configuration>

@@ -4,11 +4,14 @@ import com.walletwise.Walletwise.dto.TransactionDTO;
 import com.walletwise.Walletwise.dto.TransactionFilter;
 import com.walletwise.Walletwise.entity.Transaction;
 import com.walletwise.Walletwise.entity.User;
+import com.walletwise.Walletwise.enums.TransactionType;
 import com.walletwise.Walletwise.exception.ResourceNotFoundException;
 import com.walletwise.Walletwise.exception.UnauthorizedTransactionException;
 import com.walletwise.Walletwise.repository.TransactionRepo;
 import com.walletwise.Walletwise.repository.UserRepo;
+import com.walletwise.Walletwise.service.BudgetService;
 import com.walletwise.Walletwise.service.TransactionService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
@@ -17,8 +20,11 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.domain.PageImpl;
+
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@Slf4j
 @Service
 public class TransactionServiceImpl implements TransactionService {
     
@@ -31,6 +37,9 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @Autowired
+    private BudgetService budgetService;
+
     @Override
     public TransactionDTO getTransactionById(String id, String currentPrincipalName) {
         Transaction transaction = transactionRepo.findById(id)
@@ -39,7 +48,7 @@ public class TransactionServiceImpl implements TransactionService {
         if (!transaction.getUser().getEmail().equals(currentPrincipalName)) {
             throw new UnauthorizedTransactionException("Unauthorized access to transaction");
         }
-
+        log.info("Transaction retrieved for user: {}, transaction id: {}", currentPrincipalName, id);
         return convertToDTO(transaction);
     }
 
@@ -73,12 +82,12 @@ public class TransactionServiceImpl implements TransactionService {
         }
 
         if (transactionFilter.getFromDate() != null || transactionFilter.getToDate() != null) {
-            Criteria dateCriteria = Criteria.where("createdAt");
+            Criteria dateCriteria = Criteria.where("date");
             if (transactionFilter.getFromDate() != null) {
-                dateCriteria.gte(transactionFilter.getFromDate().atStartOfDay());
+                dateCriteria.gte(transactionFilter.getFromDate());
             }
             if (transactionFilter.getToDate() != null) {
-                dateCriteria.lte(transactionFilter.getToDate().atTime(java.time.LocalTime.MAX));
+                dateCriteria.lte(transactionFilter.getToDate());
             }
             query.addCriteria(dateCriteria);
         }
@@ -88,6 +97,7 @@ public class TransactionServiceImpl implements TransactionService {
         List<Transaction> transactions = mongoTemplate.find(query, Transaction.class);
 
         List<TransactionDTO> dtos = transactions.stream().map(this::convertToDTO).toList();
+        log.info("Retrieved transactions for user: {}", currentPrincipalName);
         return new PageImpl<>(dtos, pageable, total);
     }
 
@@ -106,13 +116,20 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction createTransaction(Transaction transaction, String currentPrincipalName) {
-        // Find the user by their authenticated email
         User user = userRepo.findByEmail(currentPrincipalName)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        // Associate the user with the transaction
         transaction.setUser(user);
-        // Save and return the newly created transaction
-        return transactionRepo.save(transaction);
+        transaction.setCreatedAt(java.time.LocalDateTime.now()); // Manually set createdAt
+        Transaction saved = transactionRepo.save(transaction);
+
+        // Check budget alert after every new expense
+        if (transaction.getType() == TransactionType.EXPENSE) {
+            String month = transaction.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM"));
+            budgetService.checkBudgetAlert(currentPrincipalName, transaction.getTransactionCategory(), month);
+        }
+        log.info("Transaction created for user: {}, amount: {}, category: {}, date: {}", currentPrincipalName, transaction.getAmount(), transaction.getTransactionCategory(), transaction.getDate());
+
+        return saved;
     }
     
 

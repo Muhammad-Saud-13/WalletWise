@@ -1,5 +1,6 @@
 package com.walletwise.Walletwise.exceptionHandler;
 
+import com.walletwise.Walletwise.exception.DuplicateBudgetException;
 import com.walletwise.Walletwise.exception.UnauthorizedTransactionException;
 import com.walletwise.Walletwise.exception.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
@@ -46,6 +47,17 @@ public class GlobalExceptionHandler {
         );
         
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(DuplicateBudgetException.class)
+    public ResponseEntity<ErrorResponse> duplicateBudgetException(DuplicateBudgetException ex){
+        ErrorResponse errorResponse = new ErrorResponse(
+                LocalDateTime.now(),
+                ex.getMessage(),
+                HttpStatus.CONFLICT.value()
+        );
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

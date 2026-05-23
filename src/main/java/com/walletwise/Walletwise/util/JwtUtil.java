@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 import javax.crypto.SecretKey;
-import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +27,7 @@ public class JwtUtil {
 
     @PostConstruct
     public void init() {
-        this.SECRET_KEY = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secret));
+        this.SECRET_KEY = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
 
