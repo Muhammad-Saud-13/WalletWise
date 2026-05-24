@@ -9,11 +9,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -57,5 +61,20 @@ public class TransactionController {
         String currentPrincipalName = authentication.getName();
         transactionService.deleteTransaction(id, currentPrincipalName);
         return ResponseEntity.ok("Transaction deleted successfully");
+    }
+
+    @GetMapping("/export/csv")
+    public void exportTransactionsToCSV(
+            @RequestParam(required = true) String fromDate,
+            @RequestParam(required = true) String toDate,
+            HttpServletResponse response
+    ) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        response.setContentType("text/csv");
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"transactions_history.csv\"");
+
+        transactionService.exportTransactionsToCSV(currentPrincipalName, fromDate, toDate, response.getWriter());
     }
 }

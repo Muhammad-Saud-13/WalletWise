@@ -20,9 +20,15 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.domain.PageImpl;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 
+import java.io.IOException;
+import java.io.Writer;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -145,5 +151,49 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepo.delete(transaction);
     }
 
+    @Override
+    public void exportTransactionsToCSV(String currentPrincipalName, String fromDate, String toDate, Writer writer) {
+        User user = userRepo.findByEmail(currentPrincipalName)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
+        Query query = new Query();
+        query.addCriteria(Criteria.where("user").is(user));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        if ((fromDate != null && !fromDate.isEmpty()) || (toDate != null && !toDate.isEmpty())) {
+            Criteria dateCriteria = Criteria.where("date");
+            if (fromDate != null && !fromDate.isEmpty()) {
+                dateCriteria.gte(LocalDate.parse(fromDate, formatter));
+            }
+            if (toDate != null && !toDate.isEmpty()) {
+                dateCriteria.lte(LocalDate.parse(toDate, formatter));
+            }
+            query.addCriteria(dateCriteria);
+        }
+
+        try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("ID", "Type", "Category", "Amount", "Payment Method", "Description", "Date"));
+             Stream<Transaction> transactionStream = mongoTemplate.stream(query, Transaction.class)) {
+
+            transactionStream.forEach(transaction -> {
+                try {
+                    csvPrinter.printRecord(
+                            transaction.getId(),
+                            transaction.getType(),
+                            transaction.getTransactionCategory(),
+                            transaction.getAmount(),
+                            transaction.getPaymentMethod(),
+                            transaction.getDescription(),
+                            transaction.getDate()
+                    );
+                } catch (IOException e) {
+                    log.error("Error writing CSV record for transaction {}", transaction.getId(), e);
+                }
+            });
+        } catch (IOException e) {
+            log.error("Error while writing CSV file", e);
+            throw new RuntimeException("Failed to export data to CSV");
+        }
+        log.info("Transactions exported successfully to CSV for user: {}, from date: {}, to date: {}", currentPrincipalName, fromDate, toDate);
+    }
 }

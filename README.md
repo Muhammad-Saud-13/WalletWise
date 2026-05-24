@@ -10,14 +10,14 @@
 |---|---|
 | Authentication (Register, Login, JWT) | ✅ Complete |
 | Transaction Management (CRUD + Filters) | ✅ Complete |
-| Budget Management | 🔄 In Progress |
+| Budget Management |✅ Complete |
 | Reports & Summary | 🔄 In Progress |
 | AI Spending Insights (Gemini API) | 🔄 In Progress |
 | Email Notifications (SendGrid) | 🔄 In Progress |
 | Scheduled Jobs | 🔄 In Progress |
-| CSV Import / Export | 🔄 In Progress |
+| CSV Export | ✅ Complete |
 | Admin Module | 🔄 In Progress |
-| Swagger / OpenAPI Docs | 🔄 In Progress |
+| Swagger / OpenAPI Docs | ✅ Complete |
 
 ---
 

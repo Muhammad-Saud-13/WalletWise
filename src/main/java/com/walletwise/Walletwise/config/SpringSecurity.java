@@ -34,7 +34,10 @@ public class SpringSecurity {
         return http
                 .csrf(AbstractHttpConfigurer::disable) // Disable CSRF as JWT is stateless
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/register", "/api/auth/login").permitAll() // Open to all (Auth)
+                        .requestMatchers("/api/auth/register",
+                                "/api/auth/login",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**").permitAll() // Open to all (Auth)
                         .anyRequest().authenticated() // Everything else needs a token (including /api/users/**)
                 )
                 // Set policy to stateless
