@@ -38,19 +38,22 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@Valid @RequestBody RegisterRequest registerRequest){
+        log.info("Received registration request for email: {}", registerRequest.getEmail());
         String response = userService.registerUser(registerRequest);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@Valid @RequestBody LoginRequest loginRequest){
+        log.info("Received login request for email: {}", loginRequest.getEmail());
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         );
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getEmail());
         String jwt = jwtUtil.generateToken(userDetails);
-
+        
+        log.info("User {} logged in successfully", loginRequest.getEmail());
         return new ResponseEntity<>(jwt, HttpStatus.OK);
     }
 }
