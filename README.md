@@ -11,7 +11,7 @@
 | Authentication (Register, Login, JWT) | ✅ Complete |
 | Transaction Management (CRUD + Filters) | ✅ Complete |
 | Budget Management |✅ Complete |
-| Reports & Summary | 🔄 In Progress |
+| Reports & Summary |✅ In Progress |
 | AI Spending Insights (Gemini API) | 🔄 In Progress |
 | Email Notifications (SendGrid) | 🔄 In Progress |
 | Scheduled Jobs | 🔄 In Progress |
