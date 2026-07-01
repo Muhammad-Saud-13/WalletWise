@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.walletwise.Walletwise.dto.LoginRequest;
 import com.walletwise.Walletwise.dto.RegisterRequest;
+import com.walletwise.Walletwise.entity.User;
+import com.walletwise.Walletwise.exception.AccountDeactivatedException;
 import com.walletwise.Walletwise.service.UserService;
 import com.walletwise.Walletwise.util.JwtUtil;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,6 +48,10 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@Valid @RequestBody LoginRequest loginRequest){
         log.info("Received login request for email: {}", loginRequest.getEmail());
+        User user = userService.getUserByEmail(loginRequest.getEmail());
+        if (!user.isActive()) {
+            throw new AccountDeactivatedException("Your account has been deactivated");
+        }
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         );

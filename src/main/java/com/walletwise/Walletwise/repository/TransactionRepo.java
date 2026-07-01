@@ -14,7 +14,8 @@ import java.util.Optional;
 
 @Repository
 public interface TransactionRepo extends MongoRepository<Transaction, String> {
-    public Optional<Transaction> findById(String id);
+    Optional<Transaction> findById(String id);
     Page<Transaction> findByUser(User user, Pageable pageable);
     List<Transaction> findByUserAndDateAfter(User user, LocalDate date);
+    long countByUser_Id(String userId);
 }

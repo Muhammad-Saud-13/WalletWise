@@ -31,8 +31,7 @@ public class UserServiceImpl implements UserService{
             user.setEmail(registerRequest.getEmail());
             user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
             user.setActive(true);
-            user.setRoles(java.util.Arrays.asList("ROLE_USER"));
-            
+            user.setRoles(java.util.List.of("ROLE_USER"));
             userRepo.save(user);
             log.info("New user registered with email: {}", user.getEmail());
             return "User registered successfully";
@@ -45,7 +44,7 @@ public class UserServiceImpl implements UserService{
     public String editUserProfile(EditProfileRequest editProfileRequest, String currentPrincipalName) {
         User user = userRepo.findByEmail(currentPrincipalName)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-                
+
         UserProfile existingProfile = user.getProfile();
         if (existingProfile == null) {
             existingProfile = new UserProfile();
@@ -67,6 +66,11 @@ public class UserServiceImpl implements UserService{
         return "User profile updated successfully";
     }
 
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepo.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    }
 
     public boolean isUserExist(String email){
         return userRepo.findByEmail(email).isPresent();
