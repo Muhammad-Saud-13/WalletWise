@@ -18,16 +18,16 @@ public class GrokAiServiceImpl implements GrokAiService {
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
 
-    @Value("${grok.api.key}")
+    @Value("${groq.api.key}")
     private String apiKey;
 
-    @Value("${grok.api.model}")
+    @Value("${groq.api.model}")
     private String model;
 
     public GrokAiServiceImpl(
             WebClient.Builder webClientBuilder,
             ObjectMapper objectMapper,
-            @Value("${grok.api.url}") String apiUrl) {
+            @Value("${groq.api.url}") String apiUrl) {
 
         this.webClient = webClientBuilder.baseUrl(apiUrl).build();
         this.objectMapper = objectMapper;
