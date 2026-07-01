@@ -13,8 +13,10 @@ import java.util.Map;
 import com.walletwise.Walletwise.dto.ErrorResponse;
 
 @RestControllerAdvice
+@SuppressWarnings("unused")
 public class GlobalExceptionHandler {
     
+    @SuppressWarnings("unused")
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> userAlreadyExistsExceptionHandler(UserAlreadyExistsException ex){
         ErrorResponse errorResponse = new ErrorResponse();
@@ -24,6 +26,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
+    @SuppressWarnings("unused")
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> resourceNotFoundExceptionHandler(ResourceNotFoundException ex){
         ErrorResponse errorResponse = new ErrorResponse();
@@ -33,6 +36,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
     
+    @SuppressWarnings("unused")
     @ExceptionHandler(UnauthorizedTransactionException.class)
     public ResponseEntity<ErrorResponse> unauthorizedTransactionException(UnauthorizedTransactionException ex){
         ErrorResponse errorResponse = new ErrorResponse();
@@ -42,6 +46,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
+    @SuppressWarnings("unused")
     @ExceptionHandler(DuplicateBudgetException.class)
     public ResponseEntity<ErrorResponse> duplicateBudgetException(DuplicateBudgetException ex){
         ErrorResponse errorResponse = new ErrorResponse();
@@ -51,6 +56,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
+    @SuppressWarnings("unused")
     @ExceptionHandler(AccountDeactivatedException.class)
     public ResponseEntity<ErrorResponse> accountDeactivatedException(AccountDeactivatedException ex){
         ErrorResponse errorResponse = new ErrorResponse();
@@ -60,6 +66,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
     }
 
+    @SuppressWarnings("unused")
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> methodArgumentNotValidException(MethodArgumentNotValidException ex){
         String message = ex.getBindingResult().getAllErrors().getFirst().getDefaultMessage();
@@ -70,13 +77,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @SuppressWarnings("unused")
     @ExceptionHandler(QuotaExceededException.class)
     public ResponseEntity<Map<String, String>> handleQuotaExceeded(QuotaExceededException e) {
         return ResponseEntity
                 .status(HttpStatus.TOO_MANY_REQUESTS)
-                .body(Map.of("error", "AI quota exceeded. Please try again later."));
+                .body(Map.of("error", e.getMessage() != null ? e.getMessage() : "AI quota exceeded. Please try again later."));
     }
 
+    @SuppressWarnings("unused")
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorResponse> runtimeExceptionHandler(RuntimeException ex){
         ErrorResponse errorResponse = new ErrorResponse();
@@ -86,6 +95,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @SuppressWarnings("unused")
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> globalExceptionHandler(Exception ex){
         ErrorResponse errorResponse = new ErrorResponse();
