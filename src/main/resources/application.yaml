@@ -1,0 +1,19 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: Walletwise
+  data:
+    mongodb:
+      # uri: mongodb+srv://Muhammad-Saud:19811982@cluster0.cms0v4y.mongodb.net/walletwise?appName=Cluster0
+      uri: mongodb://Muhammad-Saud:19811982@ac-xcrb16q-shard-00-00.cms0v4y.mongodb.net:27017,ac-xcrb16q-shard-00-01.cms0v4y.mongodb.net:27017,ac-xcrb16q-shard-00-02.cms0v4y.mongodb.net:27017/walletwise?authSource=admin&replicaSet=atlas-sbp7pv-shard-0&tls=true
+
+jwt:
+  secret: "123bdgri4985ujhbv32345678ujhgfvb"
+  expiration: 10 # in hours
+
+grok:
+  api:
+    url: "https://api.groq.com/openai/v1/chat/completions"
+    model: "llama-3.3-70b-versatile"
+    key: ${GROK_API_KEY}

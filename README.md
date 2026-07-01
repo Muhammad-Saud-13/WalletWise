@@ -11,8 +11,8 @@
 | Authentication (Register, Login, JWT) | ✅ Complete |
 | Transaction Management (CRUD + Filters) | ✅ Complete |
 | Budget Management |✅ Complete |
-| Reports & Summary |✅ In Progress |
-| AI Spending Insights (Gemini API) | 🔄 In Progress |
+| Reports & Summary |✅ Complete |
+| AI Spending Financial (Groq API) |✅ Complete |
 | Email Notifications (SendGrid) | 🔄 In Progress |
 | Scheduled Jobs | 🔄 In Progress |
 | CSV Export | ✅ Complete |
@@ -67,32 +67,6 @@ WalletWise is a backend system that helps users take control of their personal f
 - Real-time tracking of spending vs budget
 - Automated alert when spending reaches 80% of budget limit
 
-### 📈 Reports & Summary *(In Progress)*
-- Monthly income, expenses, and net savings summary
-- Category-wise spending breakdown
-- Month-over-month comparison
-- Top 5 spending categories
-- Daily spending trend for current month
-
-### 🤖 AI Insights — Gemini API *(In Progress)*
-- Personalized saving tips based on last 30 days of transactions
-- Unusual spending pattern detection
-- AI-recommended budget limits per category
-- Monthly financial health score (1–100) with explanation
-
-### 📧 Notifications & Scheduling *(In Progress)*
-- Welcome email on registration
-- Password reset email with secure link
-- Budget alert email when category spending exceeds 80%
-- Automated monthly financial summary emailed to all users on the 1st of each month
-- Daily background job to check and trigger budget alerts
-
-### 🛡️ Admin Module *(In Progress)*
-- View and manage all users
-- Deactivate or reactivate user accounts
-- Platform-wide statistics: total users, total transactions, most used categories
-
----
 
 ## 🗂️ Project Structure
 
@@ -264,7 +238,9 @@ mvn spring-boot:run
 
 4. **Access Swagger UI**
 ```
-http://localhost:8080/swagger-ui.html
+http://localhost:8080/swagger-ui/index.html#/
+
+http://localhost:8080/v3/api-docs
 ```
 
 ---

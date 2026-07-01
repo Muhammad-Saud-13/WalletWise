@@ -1,8 +1,6 @@
 package com.walletwise.Walletwise.exceptionHandler;
 
-import com.walletwise.Walletwise.exception.DuplicateBudgetException;
-import com.walletwise.Walletwise.exception.UnauthorizedTransactionException;
-import com.walletwise.Walletwise.exception.UserAlreadyExistsException;
+import com.walletwise.Walletwise.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,8 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.util.Map;
+
 import com.walletwise.Walletwise.dto.ErrorResponse;
-import com.walletwise.Walletwise.exception.ResourceNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -70,6 +69,13 @@ public class GlobalExceptionHandler {
         );
         
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(QuotaExceededException.class)
+    public ResponseEntity<Map<String, String>> handleQuotaExceeded(QuotaExceededException e) {
+        return ResponseEntity
+                .status(HttpStatus.TOO_MANY_REQUESTS)
+                .body(Map.of("error", "AI quota exceeded. Please try again later."));
     }
 
     @ExceptionHandler(RuntimeException.class)

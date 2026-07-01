@@ -1,0 +1,54 @@
+2026-06-29 19:48:09 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Starting WalletwiseApplication using Java 22.0.2 with PID 1188 (D:\Spring boot Projects\Spring MVC\Walletwise\target\classes started by Pc in D:\Spring boot Projects\Spring MVC\Walletwise)
+2026-06-29 19:48:09 [restartedMain] DEBUG c.w.Walletwise.WalletwiseApplication - Running with Spring Boot v3.5.14, Spring v6.2.18
+2026-06-29 19:48:09 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-29 19:48:29 [restartedMain] DEBUG c.w.W.config.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-06-29 19:48:41 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Started WalletwiseApplication in 34.71 seconds (process running for 36.55)
+2026-06-29 19:49:02 [http-nio-8080-exec-1] INFO  c.w.W.controller.AuthController - Received login request for email: saud@gmail.com
+2026-06-29 19:49:04 [http-nio-8080-exec-1] INFO  c.w.W.controller.AuthController - User saud@gmail.com logged in successfully
+2026-06-29 19:55:07 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Starting WalletwiseApplication using Java 22.0.2 with PID 1188 (D:\Spring boot Projects\Spring MVC\Walletwise\target\classes started by Pc in D:\Spring boot Projects\Spring MVC\Walletwise)
+2026-06-29 19:55:07 [restartedMain] DEBUG c.w.Walletwise.WalletwiseApplication - Running with Spring Boot v3.5.14, Spring v6.2.18
+2026-06-29 19:55:07 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-29 19:55:11 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Starting WalletwiseApplication using Java 22.0.2 with PID 1188 (D:\Spring boot Projects\Spring MVC\Walletwise\target\classes started by Pc in D:\Spring boot Projects\Spring MVC\Walletwise)
+2026-06-29 19:55:11 [restartedMain] DEBUG c.w.Walletwise.WalletwiseApplication - Running with Spring Boot v3.5.14, Spring v6.2.18
+2026-06-29 19:55:11 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-29 19:55:16 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Started WalletwiseApplication in 5.269 seconds (process running for 430.981)
+2026-06-29 19:55:39 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Starting WalletwiseApplication using Java 22.0.2 with PID 1188 (D:\Spring boot Projects\Spring MVC\Walletwise\target\classes started by Pc in D:\Spring boot Projects\Spring MVC\Walletwise)
+2026-06-29 19:55:39 [restartedMain] DEBUG c.w.Walletwise.WalletwiseApplication - Running with Spring Boot v3.5.14, Spring v6.2.18
+2026-06-29 19:55:39 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-29 19:55:41 [restartedMain] DEBUG c.w.W.config.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-06-29 19:55:42 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Started WalletwiseApplication in 3.201 seconds (process running for 457.123)
+2026-06-29 19:57:36 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Starting WalletwiseApplication using Java 22.0.2 with PID 11116 (D:\Spring boot Projects\Spring MVC\Walletwise\target\classes started by Pc in D:\Spring boot Projects\Spring MVC\Walletwise)
+2026-06-29 19:57:36 [restartedMain] DEBUG c.w.Walletwise.WalletwiseApplication - Running with Spring Boot v3.5.14, Spring v6.2.18
+2026-06-29 19:57:36 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-29 19:57:44 [restartedMain] DEBUG c.w.W.config.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-06-29 19:57:48 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Started WalletwiseApplication in 15.522 seconds (process running for 20.147)
+2026-06-29 20:01:19 [http-nio-8080-exec-2] INFO  c.w.W.controller.AuthController - Received login request for email: saud@gmail.com
+2026-06-29 20:01:22 [http-nio-8080-exec-2] INFO  c.w.W.controller.AuthController - User saud@gmail.com logged in successfully
+2026-06-29 20:48:12 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Starting WalletwiseApplication using Java 22.0.2 with PID 13072 (D:\Spring boot Projects\Spring MVC\Walletwise\target\classes started by Pc in D:\Spring boot Projects\Spring MVC\Walletwise)
+2026-06-29 20:48:12 [restartedMain] DEBUG c.w.Walletwise.WalletwiseApplication - Running with Spring Boot v3.5.14, Spring v6.2.18
+2026-06-29 20:48:12 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-29 20:48:20 [restartedMain] DEBUG c.w.W.config.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-06-29 20:48:24 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Started WalletwiseApplication in 13.652 seconds (process running for 15.172)
+2026-06-29 20:48:34 [http-nio-8080-exec-2] INFO  c.w.W.controller.AuthController - Received login request for email: saud@gmail.com
+2026-06-29 20:48:38 [http-nio-8080-exec-2] INFO  c.w.W.controller.AuthController - User saud@gmail.com logged in successfully
+2026-06-29 22:02:15 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Starting WalletwiseApplication using Java 22.0.2 with PID 14568 (D:\Spring boot Projects\Spring MVC\Walletwise\target\classes started by Pc in D:\Spring boot Projects\Spring MVC\Walletwise)
+2026-06-29 22:02:15 [restartedMain] DEBUG c.w.Walletwise.WalletwiseApplication - Running with Spring Boot v3.5.14, Spring v6.2.18
+2026-06-29 22:02:15 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-29 22:02:20 [restartedMain] DEBUG c.w.W.config.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-06-29 22:02:24 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Started WalletwiseApplication in 11.495 seconds (process running for 12.848)
+2026-06-29 22:02:37 [http-nio-8080-exec-1] INFO  c.w.W.controller.AuthController - Received login request for email: saud@gmail.com
+2026-06-29 22:02:39 [http-nio-8080-exec-1] INFO  c.w.W.controller.AuthController - User saud@gmail.com logged in successfully
+2026-06-29 22:04:20 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Starting WalletwiseApplication using Java 22.0.2 with PID 17352 (D:\Spring boot Projects\Spring MVC\Walletwise\target\classes started by Pc in D:\Spring boot Projects\Spring MVC\Walletwise)
+2026-06-29 22:04:20 [restartedMain] DEBUG c.w.Walletwise.WalletwiseApplication - Running with Spring Boot v3.5.14, Spring v6.2.18
+2026-06-29 22:04:20 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-29 22:04:27 [restartedMain] DEBUG c.w.W.config.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-06-29 22:04:33 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Started WalletwiseApplication in 15.194 seconds (process running for 16.586)
+2026-06-29 22:04:52 [http-nio-8080-exec-1] INFO  c.w.W.controller.AuthController - Received login request for email: saud@gmail.com
+2026-06-29 22:04:54 [http-nio-8080-exec-1] INFO  c.w.W.controller.AuthController - User saud@gmail.com logged in successfully
+2026-06-29 22:09:50 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Starting WalletwiseApplication using Java 22.0.2 with PID 248 (D:\Spring boot Projects\Spring MVC\Walletwise\target\classes started by Pc in D:\Spring boot Projects\Spring MVC\Walletwise)
+2026-06-29 22:09:50 [restartedMain] DEBUG c.w.Walletwise.WalletwiseApplication - Running with Spring Boot v3.5.14, Spring v6.2.18
+2026-06-29 22:09:50 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - No active profile set, falling back to 1 default profile: "default"
+2026-06-29 22:09:56 [restartedMain] DEBUG c.w.W.config.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-06-29 22:10:02 [restartedMain] INFO  c.w.Walletwise.WalletwiseApplication - Started WalletwiseApplication in 13.014 seconds (process running for 14.368)
+2026-06-29 22:10:07 [http-nio-8080-exec-2] INFO  c.w.W.controller.AuthController - Received login request for email: saud@gmail.com
+2026-06-29 22:10:09 [http-nio-8080-exec-2] INFO  c.w.W.controller.AuthController - User saud@gmail.com logged in successfully
