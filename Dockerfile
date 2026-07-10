@@ -1,9 +1,30 @@
+# ---------- Build Stage ----------
+FROM eclipse-temurin:21-jdk AS builder
 
+WORKDIR /app
+
+# Copy Maven wrapper
+COPY mvnw .
+COPY .mvn .mvn
+
+# Copy pom.xml
+COPY pom.xml .
+
+# Download dependencies
+RUN ./mvnw dependency:go-offline
+
+# Copy source code
+COPY src src
+
+# Build the application
+RUN ./mvnw clean package -DskipTests
+
+# ---------- Runtime Stage ----------
 FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
-COPY target/Walletwise-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=builder /app/target/*.jar app.jar
 
 EXPOSE 8080
 
