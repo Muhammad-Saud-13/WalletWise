@@ -6,10 +6,10 @@ spring:
   data:
     mongodb:
       # uri: mongodb+srv://Muhammad-Saud:19811982@cluster0.cms0v4y.mongodb.net/walletwise?appName=Cluster0
-      uri: mongodb://Muhammad-Saud:19811982@ac-xcrb16q-shard-00-00.cms0v4y.mongodb.net:27017,ac-xcrb16q-shard-00-01.cms0v4y.mongodb.net:27017,ac-xcrb16q-shard-00-02.cms0v4y.mongodb.net:27017/walletwise?authSource=admin&replicaSet=atlas-sbp7pv-shard-0&tls=true
+      uri: ${MONGODB_URI}
 
 jwt:
-  secret: "123bdgri4985ujhbv32345678ujhgfvb"
+  secret: ${JWT_SECRET}
   expiration: 10 # in hours
 
 groq:

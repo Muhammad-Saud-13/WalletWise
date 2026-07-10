@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  walletwise:
+    build: .
+    container_name: walletwise
+
+    ports:
+      - "8080:8080"
+
+    env_file:
+      - .env
+
+    restart: unless-stopped
