@@ -3,8 +3,8 @@ FROM eclipse-temurin:21-jdk AS builder
 
 WORKDIR /app
 
-# Copy Maven wrapper
-COPY mvnw .
+# Copy Maven wrapper and gives it execute permission.and gives it execute permission
+COPY --chmod=755 mvnw .
 COPY .mvn .mvn
 
 # Copy pom.xml
