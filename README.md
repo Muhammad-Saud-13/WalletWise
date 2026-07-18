@@ -1,23 +1,29 @@
-# 💰 WalletWise — Personal Finance Tracker with AI Insights
+#  WalletWise — Personal Finance Tracker with AI Insights
 
-> A production-ready RESTful backend built with **Java Spring Boot** and **MongoDB**, featuring JWT authentication, smart budgeting, AI-powered spending insights, automated reporting, and third-party integrations.
+> A modern RESTful backend built with **Java Spring Boot** and **MongoDB**, featuring JWT authentication, smart budgeting, AI-powered spending insights, automated reporting, and third-party integrations.
 
 ---
 
+##  Live Backend
+
+- **Base URL:** https://walletwise-bu3l.onrender.com/
+- **Swagger UI:** https://walletwise-bu3l.onrender.com/swagger-ui/index.html
+- **OpenAPI Docs:** https://walletwise-bu3l.onrender.com/v3/api-docs
+
 ## 🚧 Project Status
 
-| Module | Status |
-|---|---|
-| Authentication (Register, Login, JWT) | ✅ Complete |
+| Module                                  | Status |
+|-----------------------------------------|---|
+| Authentication (Register, Login, JWT)   | ✅ Complete |
 | Transaction Management (CRUD + Filters) | ✅ Complete |
-| Budget Management |✅ Complete |
-| Reports & Summary |✅ Complete |
-| AI Spending Financial (Groq API) |✅ Complete |
-| Email Notifications (SendGrid) | 🔄 In Progress |
-| Scheduled Jobs | 🔄 In Progress |
-| CSV Export | ✅ Complete |
-| Admin Module | 🔄 In Progress |
-| Swagger / OpenAPI Docs | ✅ Complete |
+| Budget Management                       |✅ Complete |
+| Reports & Summary                       |✅ Complete |
+| AI Spending Financial (Groq API)        |✅ Complete |
+| CSV Export                              | ✅ Complete |
+| Admin Module                            | ✅ In Progress |
+| Swagger / OpenAPI Docs                  | ✅ Complete |
+| Dockerization                           | ✅ Complete |
+| Deployment                              | ✅ Complete |
 
 ---
 
@@ -159,7 +165,7 @@ POST   /api/transactions/import-csv
 GET    /api/transactions/export-csv
 ```
 
-### Budgets *(In Progress)*
+### Budgets 
 ```
 POST   /api/budgets
 GET    /api/budgets
@@ -168,7 +174,7 @@ DELETE /api/budgets/{id}
 GET    /api/budgets/status
 ```
 
-### Reports *(In Progress)*
+### Reports
 ```
 GET    /api/reports/monthly-summary?month=2026-04
 GET    /api/reports/category-breakdown?month=2026-04
@@ -177,14 +183,14 @@ GET    /api/reports/top-categories
 GET    /api/reports/daily-trend
 ```
 
-### AI Insights *(In Progress)*
+### AI Insights
 ```
 GET    /api/ai/spending-insights
 GET    /api/ai/budget-recommendations
 GET    /api/ai/health-score
 ```
 
-### Admin *(In Progress)*
+### Admin 
 ```
 GET    /api/admin/users
 PUT    /api/admin/users/{id}/deactivate
